@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
+import { Platform } from 'react-native';
 import { DailyChecklistScreen } from './src/screens/DailyChecklistScreen';
 import { HistoryScreen } from './src/screens/HistoryScreen';
 import { ReportsScreen } from './src/screens/ReportsScreen';
@@ -16,8 +17,12 @@ export default function App() {
   useEffect(() => {
     // Initialize app data
     const initializeApp = async () => {
-      await StorageService.initializeDefaultPlan();
-      await DietUtils.checkAndResetDaily();
+      try {
+        await StorageService.initializeDefaultPlan();
+        await DietUtils.checkAndResetDaily();
+      } catch (error) {
+        console.error('Error initializing app:', error);
+      }
     };
     initializeApp();
   }, []);
