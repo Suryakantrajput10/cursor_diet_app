@@ -19,5 +19,18 @@ module.exports = async function (env, argv) {
     buffer: require.resolve('buffer'),
   };
 
+  // Ignore missing asset files during build
+  config.module.rules.push({
+    test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          emitFile: false, // Don't emit files if they don't exist
+        },
+      },
+    ],
+  });
+
   return config;
 };
