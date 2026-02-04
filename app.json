@@ -21,7 +21,8 @@
     },
     "web": {
       "bundler": "webpack",
-      "output": "static"
+      "output": "static",
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-notifications"
